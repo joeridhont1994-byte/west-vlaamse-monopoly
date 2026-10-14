@@ -64,6 +64,11 @@ const lights=[];for(const x of [-10.8,10.8])for(const z of [-10.8,-4,4,10.8]){bo
 const people=[];for(let i=0;i<10;i++){const walker=new THREE.Group();const torso=new THREE.Mesh(new THREE.CapsuleGeometry(.13,.3,3,6),mat([0xa45454,0x536f9c,0x9b8b4e,0x4b8872][i%4]));torso.position.y=.45;walker.add(torso);const head=new THREE.Mesh(new THREE.SphereGeometry(.13,8,6),mat(0xf1c99e));head.position.y=.85;walker.add(head);walker.position.set(i%2?11:-11,0,-10+(i%5)*4);scene.add(walker);people.push(walker)}
 for(let n=0;n<4;n++){box(30,.08,3.5,0,-.14,n%2?12:-12,mats.road,false);box(3.5,.08,30,n%2?12:-12,-.14,0,mats.road,false)}
 for(let side of [-12,12])for(let p=-10;p<=10;p+=4){box(1.4,.025,.12,p,-.075,side,mat(0xf9e4ad),false);box(.12,.025,1.4,side,-.075,p,mat(0xf9e4ad),false)}
+// V24 city realism: zebra crossings, pavement kerbs and street markings
+const crosswalkMat=mat(0xf7eee0),kerbMat=mat(0xb5b7ae);
+for(const sign of [-1,1])for(let stripe=-3;stripe<=3;stripe++){box(.38,.025,1.5,stripe*.65,-.074,sign*12,crosswalkMat,false);box(1.5,.025,.38,sign*12,-.074,stripe*.65,crosswalkMat,false)}
+for(const side of [-9.7,9.7]){box(24,.12,.22,0,-.09,side,kerbMat,false);box(.22,.12,24,side,-.09,0,kerbMat,false)}
+for(let i=-2;i<=2;i++){box(.22,.022,1.4,i*3,-.07,-12,mat(0xf4d77a),false);box(1.4,.022,.22,12,-.07,i*3,mat(0xf4d77a),false)}
 function tree(x,z){box(.2,1,.2,x,.55,z,mats.trunk);const ball=new THREE.Mesh(new THREE.SphereGeometry(.65,9,7),mats.leaves);ball.position.set(x,1.45,z);ball.castShadow=true;scene.add(ball)}
 for(let i=0;i<5;i++){const a=i*2.399;const radius=3.0+(i%2)*.3;tree(Math.cos(a)*radius,Math.sin(a)*radius)}
 const path=[];for(let i=0;i<16;i++){const side=Math.floor(i/4),k=i%4;path.push(side===0?[-7.5+k*5,-7.5]:side===1?[7.5,-7.5+k*5]:side===2?[7.5-k*5,7.5]:[-7.5,7.5-k*5])}
