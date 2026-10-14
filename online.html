@@ -47,6 +47,15 @@ for(let n=0;n<12;n++){const side=Math.floor(n/3),k=n%3,a=-10+k*4.5;let x=side===
 // V22 architectural details: Flemish gables, lit windows, canal and city square.
 const stone=mat(0xd8c5a5),brick=mat(0xa65e4e),glass=mat(0x9fd7e2),gold=mat(0xffd58a);
 for(let n=0;n<12;n++){const side=Math.floor(n/3),k=n%3,a=-10+k*4.5;let x=side===1?14:side===3?-14:a,z=side===0?-14:side===2?14:a;const ht=2.1+(n%4)*.9;const roof=new THREE.Mesh(new THREE.ConeGeometry(1.7,.92,4),mat(n%2?0x4b6671:0x854a43));roof.rotation.y=Math.PI/4;roof.position.set(x,ht+.65,z);roof.castShadow=true;scene.add(roof);for(let floor=0;floor<Math.floor(ht/.7);floor++)for(const dx of [-.65,.65]){box(.55,.06,.09,x+dx,.9+floor*.7,z+1.3,stone,false);box(.32,.32,.03,x+dx,.66+floor*.7,z+1.29,glass,false)}box(.82,.18,.16,x,.92,z+1.35,gold,false)}
+// V23 decorative architecture and paved town square
+const roofTiles=[0x92483c,0x4d6573,0x73514e,0x8b4b3c].map(c=>mat(c));
+for(let n=0;n<12;n++){const side=Math.floor(n/3),k=n%3,a=-10+k*4.5;const x=side===1?14:side===3?-14:a,z=side===0?-14:side===2?14:a,ht=2.1+(n%4)*.9;
+const chimney=new THREE.Mesh(new THREE.BoxGeometry(.27,.62,.3),mat(0xb68167));chimney.position.set(x+.65,ht+1,z-.45);chimney.castShadow=true;scene.add(chimney);
+for(let f=0;f<3;f++){const ledge=new THREE.Mesh(new THREE.BoxGeometry(2.5,.065,.12),mat(0xe7d7ba));ledge.position.set(x,.7+f*.72,z+1.27);scene.add(ledge)}
+const door=new THREE.Mesh(new THREE.BoxGeometry(.55,.85,.08),mat(0x5e483c));door.position.set(x,.47,z+1.32);scene.add(door);
+for(let w of [-.68,.68]){const planter=new THREE.Mesh(new THREE.BoxGeometry(.38,.19,.27),mat(0xa15d49));planter.position.set(x+w,.21,z+1.53);scene.add(planter);const shrub=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),mat(0x4c8d55));shrub.position.set(x+w,.41,z+1.53);scene.add(shrub)}}
+const cobble=mat(0xc5bba7);for(let i=-4;i<=4;i++){box(.045,.012,8.5,i*1.02,.08,0,cobble,false);box(8.5,.012,.045,0,.081,i*1.02,cobble,false)}
+const flowerColors=[0xe24f5c,0xf1c65b,0xf9e6d0];for(let i=0;i<18;i++){const a=i*2.399,r=4.1+(i%3)*.34,x=Math.cos(a)*r,z=Math.sin(a)*r;const bloom=new THREE.Mesh(new THREE.SphereGeometry(.105,6,5),mat(flowerColors[i%3]));bloom.position.set(x,.26,z);scene.add(bloom)}
 const waterMat=new THREE.MeshStandardMaterial({color:0x387da1,roughness:.2,metalness:.3,transparent:true,opacity:.86});
 box(37,.08,2.2,0,-.23,17.2,waterMat,false);
 for(let bx of [-9,9]){box(3,.22,3.1,bx,.03,17.2,stone,false);for(let sx of [-1.2,1.2])box(.12,.7,3.1,bx+sx,.48,17.2,stone,false)}
