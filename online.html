@@ -80,6 +80,21 @@ const crosswalkMat=mat(0xf7eee0),kerbMat=mat(0xb5b7ae);
 for(const sign of [-1,1])for(let stripe=-3;stripe<=3;stripe++){box(.38,.025,1.5,stripe*.65,-.074,sign*12,crosswalkMat,false);box(1.5,.025,.38,sign*12,-.074,stripe*.65,crosswalkMat,false)}
 for(const side of [-9.7,9.7]){box(24,.12,.22,0,-.09,side,kerbMat,false);box(.22,.12,24,side,-.09,0,kerbMat,false)}
 for(let i=-2;i<=2;i++){box(.22,.022,1.4,i*3,-.07,-12,mat(0xf4d77a),false);box(1.4,.022,.22,12,-.07,i*3,mat(0xf4d77a),false)}
+// V27 city upgrade: pedestrian benches, bicycle racks, bollards and flower beds.
+const streetWood=mat(0x936b49),streetIron=mat(0x344e5c),flowerBed=mat(0x9e6553);
+for(const x of [-5,5])for(const z of [-10.8,10.8]){
+box(1.35,.12,.48,x,.48,z,streetWood,false);
+box(1.35,.57,.12,x,.78,z-.2,streetWood,false);
+for(const dx of [-.5,.5]){box(.09,.47,.09,x+dx,.25,z-.14,streetIron,false);box(.09,.47,.09,x+dx,.25,z+.15,streetIron,false)}
+}
+for(const x of [-8,8])for(const z of [-10.4,10.4]){
+box(1.55,.3,.65,x,.17,z,flowerBed,false);
+for(let k=0;k<5;k++){const bloom=new THREE.Mesh(new THREE.SphereGeometry(.15,7,6),mat([0xffcf6a,0xea6685,0xffefce][k%3]));bloom.position.set(x-.55+k*.27,.4,z);scene.add(bloom)}
+}
+for(const z of [-10.8,10.8])for(const x of [-8,-6,6,8]){
+const bollard=new THREE.Mesh(new THREE.CylinderGeometry(.085,.1,.65,8),streetIron);bollard.position.set(x,.33,z);scene.add(bollard);
+const cap=new THREE.Mesh(new THREE.SphereGeometry(.115,8,6),mat(0xf4db9b));cap.position.set(x,.67,z);scene.add(cap)
+}
 function tree(x,z){box(.2,1,.2,x,.55,z,mats.trunk);const ball=new THREE.Mesh(new THREE.SphereGeometry(.65,9,7),mats.leaves);ball.position.set(x,1.45,z);ball.castShadow=true;scene.add(ball)}
 for(let i=0;i<5;i++){const a=i*2.399;const radius=3.0+(i%2)*.3;tree(Math.cos(a)*radius,Math.sin(a)*radius)}
 const path=[];for(let i=0;i<16;i++){const side=Math.floor(i/4),k=i%4;path.push(side===0?[-7.5+k*5,-7.5]:side===1?[7.5,-7.5+k*5]:side===2?[7.5-k*5,7.5]:[-7.5,7.5-k*5])}
